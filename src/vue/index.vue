@@ -8,7 +8,7 @@
   export default {
     data() {
       return {
-        message: 'value1'
+        message: 'value'
       }
     },
   }

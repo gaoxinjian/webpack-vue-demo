@@ -127,7 +127,7 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n//\n//\n//\n//\n//\n//\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  data() {\n    return {\n      message: 'value1'\n    }\n  },\n});\n\n\n//# sourceURL=webpack:///./src/vue/index.vue?./node_modules/vue-loader/lib??vue-loader-options");
+eval("__webpack_require__.r(__webpack_exports__);\n//\n//\n//\n//\n//\n//\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  data() {\n    return {\n      message: 'value'\n    }\n  },\n});\n\n\n//# sourceURL=webpack:///./src/vue/index.vue?./node_modules/vue-loader/lib??vue-loader-options");
 
 /***/ }),
 
