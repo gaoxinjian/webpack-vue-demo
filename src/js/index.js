@@ -1,7 +1,8 @@
 import Index from '../vue/index.vue';
 import Vue from 'vue';
+import { cube } from './common.js';
 
-console.log(123);
+console.log(cube(2));
 
 new Vue({
   render: h => h(Index),

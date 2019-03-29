@@ -9,17 +9,27 @@ var webpackConfig = {
   entry: {},//具体内容由后面编写的脚本填充
   output: {
     path: outputRoot,
-    filename: '[name].js'
+    filename: '[name]/[name].[chunkhash].js'
   },
   module: {
     rules: [
       {
         test: /\.css$/,
+        include: srcRoot,
         loader: ['style-loader', 'css-loader']
       },
       {
         test: /\.vue$/,
+        include: srcRoot,
         loader: 'vue-loader'
+      },
+      {
+        test: /\.js$/,
+        include: srcRoot,
+        loader: 'babel-loader',
+        options: {
+            presets: ['es2015']
+        }
       }
     ]
   },
@@ -33,38 +43,21 @@ var webpackConfig = {
   }
 }
 
-
-let filenamesWechat = fs.readdirSync(path.resolve(srcRoot, 'wechatWeb'));
+let filenamesWechat = fs.readdirSync(path.resolve(srcRoot, 'html'));
 filenamesWechat.forEach(function (filename) {
-  let stats = fs.statSync(path.resolve(srcRoot, 'wechatWeb', filename));
+  let stats = fs.statSync(path.resolve(srcRoot, 'html', filename));
   if (stats.isFile()) {
     let extension = path.extname(filename);
     let name = filename.substring(0, filename.lastIndexOf(extension));
     webpackConfig.entry[name] = path.resolve(srcRoot, 'js', name + '.js')
     webpackConfig.plugins.push(new HtmlWebpackPlugin({
-      filename: name + '.html',
-      template: path.resolve(srcRoot, 'wechatWeb', name + '.html'),
+      filename: name + '/' + name + '.html',
+      template: path.resolve(srcRoot, 'html', name + '.html'),
       inject: true,
       chunks: ['common', name] //这个设置使得每个 html 只包含 common 以及与自己命名相同的那一个 chunk
     }));
   }
 });
-
-// let filenamesApp = fs.readdirSync(path.resolve(srcRoot, 'appWeb'));
-// filenamesApp.forEach(function (filename) {
-//   let stats = fs.statSync(path.resolve(srcRoot, 'appWeb', filename));
-//   if (stats.isFile()) {
-//     let extension = path.extname(filename);
-//     let name = filename.substring(0, filename.lastIndexOf(extension));
-//     webpackConfig.entry[name] = path.resolve(srcRoot, 'js', name + '.js')
-//     webpackConfig.plugins.push(new HtmlWebpackPlugin({
-//       filename: '../html/appWeb/' + name + '.html',
-//       template: path.resolve(srcRoot, 'appWeb', name + '.html'),
-//       inject: true,
-//       chunks: ['common', name] //这个设置使得每个 html 只包含 common 以及与自己命名相同的那一个 chunk
-//     }));
-//   }
-// });
 
 module.exports = {
   entry: webpackConfig.entry,
